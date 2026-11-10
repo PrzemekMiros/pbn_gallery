@@ -1,10 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import { slugifyTitle } from "../../lib/slugifyTitle";
-import { ART_CATEGORIES } from "../../lib/categories";
 import BanerOne from "./BanerOne.astro";
 
-const category = ART_CATEGORIES[0];
 const imageEntries = import.meta.glob("/src/content/artykuly/img/**/*", { eager: true });
 const resolveArticleImage = (path) => {
   if (!path) return null;
@@ -34,9 +32,6 @@ const getArticleSlug = (slugPath) => {
   const parts = slugPath.split("/");
   return parts.length > 1 ? parts.slice(1).join("/") : slugPath;
 };
-const normalizeCategories = (category) =>
-  Array.isArray(category) ? category : category ? [category] : [];
-
 const posts = Object.entries(entries)
   .map(([file, entry]) => {
     const slugPath = getSlugPathFromFile(file);
@@ -50,11 +45,6 @@ const posts = Object.entries(entries)
       date,
     };
   })
-  .filter((post) =>
-    normalizeCategories(post.category).some(
-      (item) => slugifyTitle(item) === category.slug
-    )
-  )
   .sort((a, b) => {
     const aTime = a.date ? a.date.getTime() : 0;
     const bTime = b.date ? b.date.getTime() : 0;
