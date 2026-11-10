@@ -1,0 +1,7 @@
+# Chińskie auta
+
+npm install
+
+
+
+
