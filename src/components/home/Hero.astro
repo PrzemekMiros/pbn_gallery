@@ -21,7 +21,7 @@ const ctaPrimary = { label: "Zobacz realizacje", href: "/realizacje/" };
     <div class="space-y-6 max-w-xl">
       <div class="flex items-center space-x-3 mb-6">
       <div class="flex items-center bg-[#1a1a1a] border border-gray-800 rounded-full px-4 py-0">
-        <div class="flex text-orange-500 text-[14px] mr-2">
+        <div class="flex text-[var(--accent)] text-[14px] mr-2">
           ★★★★★
         </div>
         <span class="text-[9px] font-semibold tracking-wide uppercase">
@@ -41,7 +41,7 @@ const ctaPrimary = { label: "Zobacz realizacje", href: "/realizacje/" };
       </p>
 
     <div class="flex flex-col md:flex-row items-start md:items-center gap-8">
-        <a class="inline-flex rounded-full bg-[var(--accent)] px-6 py-3 text-base font-semibold text-white transition hover:brightness-95" href={ctaPrimary.href} title={ctaPrimary.label}>
+        <a class="inline-flex rounded-full bg-[var(--accent)] px-6 py-3 text-base font-semibold text-[var(--accent-foreground)] transition hover:brightness-95" href={ctaPrimary.href} title={ctaPrimary.label}>
           {ctaPrimary.label}
         </a>
 
@@ -88,5 +88,3 @@ const ctaPrimary = { label: "Zobacz realizacje", href: "/realizacje/" };
     </div>
   </div>
 </section>
-
-

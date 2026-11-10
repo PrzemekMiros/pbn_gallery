@@ -37,36 +37,43 @@
 }
 
 :root {
-  --accent: #f35500;
-  --accent2: #22e243;
-  --surface: #ffffff;
-  --surface-muted: #f7f5f2;
-  --bg: #ffffff;
-  --text: #434750;
-  --muted: #4b5563;
-  --border: rgba(15, 23, 42, 0.12);
+  --accent: #9a5e14;
+  --accent-foreground: #ffffff;
+  --accent2: #e7d2aa;
+  --surface: #fffefa;
+  --surface-muted: #f8f5ef;
+  --bg: #fffdf9;
+  --text: #292824;
+  --muted: #68645c;
+  --border: rgba(41, 40, 36, 0.14);
 }
 
 :root[data-theme="dark"],
 :root.dark {
-  --surface: #111219;
-  --surface-muted: #13161c;
-  --bg: #0a0b10;
-  --text: #e5e7eb;
-  --muted: #9ca3af;
-  --border: rgba(148, 163, 184, 0.2);
+  --accent: #e2b66f;
+  --accent-foreground: #292824;
+  --accent2: #c8a46a;
+  --surface: #242321;
+  --surface-muted: #2c2a26;
+  --bg: #191816;
+  --text: #f2eee6;
+  --muted: #bcb5a8;
+  --border: rgba(226, 214, 193, 0.2);
   color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]),
   :root[data-theme="system"] {
-    --surface: #0f172a;
-    --surface-muted: #111827;
-    --bg: #0b0f14;
-    --text: #e5e7eb;
-    --muted: #9ca3af;
-    --border: rgba(148, 163, 184, 0.2);
+    --accent: #e2b66f;
+    --accent-foreground: #292824;
+    --accent2: #c8a46a;
+    --surface: #242321;
+    --surface-muted: #2c2a26;
+    --bg: #191816;
+    --text: #f2eee6;
+    --muted: #bcb5a8;
+    --border: rgba(226, 214, 193, 0.2);
   }
 }
 
@@ -289,7 +296,7 @@ pre.astro-code {
   position: absolute;
   top: 52px;
   padding: 2em;
-  background: #fff;
+  background: var(--surface);
   border-radius: 15px;
   overflow-y: scroll;
   height: 740px;

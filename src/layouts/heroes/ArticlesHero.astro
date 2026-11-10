@@ -1,10 +1,6 @@
 ---
 
-import { Image } from "astro:assets";
-
-const { title, lead, tags, date, headerImage, readingTime } = Astro.props;
-const isHeaderAsset = !!headerImage && typeof headerImage === "object" && "src" in headerImage;
-const headerSrc = !isHeaderAsset ? headerImage : null;
+const { title, lead, tags, date, readingTime } = Astro.props;
 const shareUrl = Astro.site
   ? new URL(Astro.url?.pathname ?? "/", Astro.site).href
   : Astro.url?.href ?? "";
@@ -25,30 +21,6 @@ const formattedDate = date ? new Date(date).toLocaleDateString('pl-PL', {
 <section class="relative pt-28 pb-12 md:pt-32 md:pb-8 border-b border-gray-300">
   
   <div class="relative grid gap-10">
-      {headerImage ? (
-    isHeaderAsset ? (
-      <Image
-        src={headerImage}
-        alt=""
-        class="aspect-[8/2] w-full object-cover object-top rounded-sm"
-        sizes="100vw"
-        widths={[640, 960, 1280, 1600, 1920]}
-        loading="lazy"
-        decoding="async"
-        aria-hidden="true"
-      />
-    ) : (
-      <img
-        class="h-full w-full"
-        src={headerSrc}
-        sizes="100vw"
-        loading="lazy"
-        decoding="async"
-        alt=""
-        aria-hidden="true"
-      />
-    )
-  ) : null}
     <div class="space-y-2">
 
     <div class="grid gap-4 grid-cols-[1fr_40px] gap-24 justify-between">
@@ -120,4 +92,3 @@ const formattedDate = date ? new Date(date).toLocaleDateString('pl-PL', {
     </div>
   </div>
 </section>
-

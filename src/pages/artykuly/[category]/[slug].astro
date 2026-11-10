@@ -231,7 +231,6 @@ if (!artykul) {
     lead={artykul.description}
     tags={artykul.tags}
     date={artykul.date}
-    headerImage={headerImage}
     readingTime={readingTime}
   />
   <article
@@ -284,7 +283,7 @@ if (!artykul) {
       </aside>
 
       <div class="space-y-12">
-        {Content ? (
+        {Content || headerImage ? (
   <section
     id="article-content"
     class="space-y-6 text-[16px] leading-relaxed text-[var(--text)] sm:text-[17px] sm:leading-relaxed 
@@ -295,7 +294,29 @@ if (!artykul) {
     [&>hr]:my-8 [&>hr]:border-[var(--border)] 
     [&>p]:mb-5 [&>p]:last:mb-0"
   >
-    <Content />
+    {headerImage ? (
+      typeof headerImage === "object" && "src" in headerImage ? (
+        <Image
+          src={headerImage}
+          alt={artykul.title ?? artykul.slug}
+          class="aspect-[8/2] w-full object-cover object-top rounded-sm"
+          sizes="100vw"
+          widths={[640, 960, 1280, 1600, 1920]}
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <img
+          class="h-full w-full"
+          src={headerImage}
+          alt={artykul.title ?? artykul.slug}
+          sizes="100vw"
+          loading="lazy"
+          decoding="async"
+        />
+      )
+    ) : null}
+    {Content ? <Content /> : null}
   </section>
         ) : null}
 
