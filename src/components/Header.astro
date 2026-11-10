@@ -1,159 +1,43 @@
 ﻿---
-import logo from "../assets/images/global/logo.png";
+import logo from "../assets/images/global/logo-light.png";
 import Search from "astro-pagefind/components/Search";
 import { ThemeSwitch } from "astro-color-scheme";
 import { slugifyTitle } from "../lib/slugifyTitle";
+import { ART_CATEGORIES } from "../lib/categories";
 const { settings } = Astro.props;
 const pathname = Astro.url?.pathname ?? "";
 const isActive = (href) =>
   href === "/" ? pathname === "/" : pathname.startsWith(href);
 
-const navItems = [
-  {
-    href: "/porownywarka/",
-    label: "Porównywarka",
-    description: "Nowosci z branzy 4x4 i offroad.",
-    columns: [
-      {
-        title: "Co sledzic",
-        links: [
-          { href: "/aktualnosci-i-rynek/", label: "Wiadomosci", meta: "Porównywarka" },
-          { href: "/artykuly/", label: "Najnowsze artykuly", meta: "Aktualności" },
-          { href: "/tags/", label: "Tagi", meta: "Szybkie filtrowanie tematow" },
-        ],
-      },
-      {
-        title: "Dla czytelnikow",
-        links: [
-          { href: "/polityka/", label: "Polityka i zasady", meta: "Wazne informacje o serwisie" },
-          { href: "/", label: "Strona glowna", meta: "Najwazniejsze sekcje" },
-        ],
-      },
-    ],
-    featured: {
-      eyebrow: "Brief dnia",
-      title: "Raport 4x4",
-      text: "Szybki przeglad tego, co dzieje sie na rynku i szlakach.",
-      href: "/aktualnosci-i-rynek/",
-      cta: "Przejdz do dzialu",
+const navItems = ART_CATEGORIES.map((category) => ({
+  href: `/${category.slug}/`,
+  label: category.label,
+  description: `Artykuły z kategorii ${category.label}.`,
+  columns: [
+    {
+      title: "Kategoria",
+      links: [
+        { href: `/${category.slug}/`, label: `Wszystko: ${category.label}`, meta: "Przeglądaj kategorię" },
+        { href: "/artykuly/", label: "Wszystkie artykuły", meta: "Pełne archiwum" },
+        { href: "/tags/", label: "Tagi", meta: "Odkrywaj tematy" },
+      ],
     },
-  },
-  {
-    href: "/testy-i-opinie/",
-    label: "Testy i opinie",
-    description: "Testy aut, porownania i realne wnioski.",
-    columns: [
-      {
-        title: "Najwazniejsze",
-        links: [
-          { href: "/samochody-i-testy/", label: "Testy terenowe", meta: "Ocena w prawdziwym terenie" },
-          { href: "/artykuly/", label: "Porownania modeli", meta: "Co wybrac i dlaczego" },
-          { href: "/tags/", label: "Tagi techniczne", meta: "Silnik, naped, zawieszenie" },
-        ],
-      },
-      {
-        title: "Szybkie wejscia",
-        links: [
-          { href: "/", label: "Polecane tresci", meta: "Top artykuly redakcji" },
-          { href: "/polityka/", label: "Informacje serwisowe", meta: "Regulacje i transparentnosc" },
-        ],
-      },
-    ],
-    featured: {
-      eyebrow: "W tym tygodniu",
-      title: "Porownanie 3 aut",
-      text: "Praktyczne zestawienie SUV-ow i klasycznych aut 4x4.",
-      href: "/samochody-i-testy/",
-      cta: "Zobacz testy",
+    {
+      title: "Art Gallery",
+      links: [
+        { href: "/artykuly/", label: "Najnowsze artykuły", meta: "Czytaj o sztuce" },
+        { href: "/polityka/", label: "O portalu", meta: "Informacje i zasady" },
+      ],
     },
+  ],
+  featured: {
+    eyebrow: category.label,
+    title: category.label,
+    text: `Poznaj artykuły, dzieła i idee związane z kategorią ${category.label.toLowerCase()}.`,
+    href: `/${category.slug}/`,
+    cta: "Przeglądaj kategorię",
   },
-  {
-    href: "/cenniki-i-koszty/",
-    label: "Cenniki i koszty",
-    description: "Modyfikacje, setup i serwis terenowy.",
-    columns: [
-      {
-        title: "Baza wiedzy",
-        links: [
-          { href: "/warsztat-i-tuning/", label: "Modyfikacje 4x4", meta: "Od podstaw po zaawansowane setupy" },
-          { href: "/artykuly/", label: "Checklisty warsztatowe", meta: "Kroki przed i po sezonie" },
-          { href: "/tags/", label: "Tagi narzedziowe", meta: "Zawieszenie, opony, osprzet" },
-        ],
-      },
-      {
-        title: "Nawigacja",
-        links: [
-          { href: "/", label: "Start", meta: "Przeglad najnowszych tematow" },
-          { href: "/polityka/", label: "Zasady publikacji", meta: "Jak pracuje redakcja" },
-        ],
-      },
-    ],
-    featured: {
-      eyebrow: "Praktycznie",
-      title: "Setup pod wyprawe",
-      text: "Lista rzeczy, ktore warto ustawic przed wyjazdem.",
-      href: "/warsztat-i-tuning/",
-      cta: "Sprawdz poradniki",
-    },
-  },
-  {
-    href: "/poradniki-i-technika-jazdy/",
-    label: "Poradniki i technika jazdy",
-    description: "Technika, bezpieczenstwo i planowanie trasy.",
-    columns: [
-      {
-        title: "Jazda w terenie",
-        links: [
-          { href: "/poradniki-i-technika-jazdy/", label: "Technika prowadzenia", meta: "Bloto, piach i podjazdy" },
-          { href: "/artykuly/", label: "Praktyczne poradniki", meta: "Checklisty krok po kroku" },
-          { href: "/tags/", label: "Tagi szkoleniowe", meta: "Szybkie wejscia tematyczne" },
-        ],
-      },
-      {
-        title: "Dodatkowe",
-        links: [
-          { href: "/", label: "Najczesciej czytane", meta: "Top tresci spolecznosci" },
-          { href: "/polityka/", label: "Polityka serwisu", meta: "Wazne informacje" },
-        ],
-      },
-    ],
-    featured: {
-      eyebrow: "Bezpiecznie",
-      title: "Nawyki kierowcy 4x4",
-      text: "Najwazniejsze zasady jazdy, ktore realnie obnizaja ryzyko.",
-      href: "/poradniki-i-technika-jazdy/",
-      cta: "Przejdz do poradnikow",
-    },
-  },
-  {
-    href: "/producenci/",
-    label: "Producenci",
-    columns: [
-      {
-        title: "Planowanie",
-        links: [
-          { href: "/turystyka-i-wyprawy/", label: "Trasy i inspiracje", meta: "Pomysly na kolejne wyjazdy" },
-          { href: "/artykuly/", label: "Logistyka wyprawy", meta: "Wyposazenie i przygotowanie" },
-          { href: "/tags/", label: "Tagi podroznicze", meta: "Nawigacja i biwak" },
-        ],
-      },
-      {
-        title: "Na skroty",
-        links: [
-          { href: "/", label: "Najpopularniejsze wpisy", meta: "Sprawdzone przez czytelnikow" },
-          { href: "/polityka/", label: "Informacje prawne", meta: "Korzystanie z serwisu" },
-        ],
-      },
-    ],
-    featured: {
-      eyebrow: "Wyprawa",
-      title: "Weekend 4x4",
-      text: "Szkic trasy, sprzetu i planu awaryjnego.",
-      href: "/turystyka-i-wyprawy/",
-      cta: "Zobacz inspiracje",
-    },
-  },
-];
+}));
 
 const imageEntries = import.meta.glob("/src/content/artykuly/img/**/*", { eager: true });
 const resolveArticleImage = (path) => {
@@ -230,7 +114,7 @@ const linkClass = (href) =>
     <div class="grid grid-cols-2 md:grid-cols-3 gap-4 space-between items-center py-2">
       <div>
         <a href="/" class="text-xl font-semibold tracking-tighter text-black no-underline" aria-label="Logo">
-          <img src={logo.src} class="w-42" width="350" height="102" alt="Logo Offroad" />
+          <img src={logo.src} class="w-42" width="350" height="102" alt="Art Gallery" />
         </a>
       </div>
       <div class="hidden md:flex items-center">

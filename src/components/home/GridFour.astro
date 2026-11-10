@@ -2,9 +2,10 @@
 import { Image } from "astro:assets";
 import adImage from "../../assets/images/advertise/ad-2.jpg";
 import { slugifyTitle } from "../../lib/slugifyTitle";
+import { ART_CATEGORIES } from "../../lib/categories";
 
-const TARGET_CATEGORY = "poradniki i technika jazdy";
-const TARGET_CATEGORY_SLUGS = ["poradniki-i-technika-jazdy"];
+const TARGET_CATEGORY = ART_CATEGORIES[3].label;
+const TARGET_CATEGORY_SLUGS = [ART_CATEGORIES[3].slug];
 const imageEntries = import.meta.glob("/src/content/artykuly/img/**/*", { eager: true });
 
 const resolveArticleImage = (path) => {

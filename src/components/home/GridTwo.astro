@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import adImage from "../../assets/images/advertise/ad-tough-vertical.png";
 import { slugifyTitle } from "../../lib/slugifyTitle";
+import { ART_CATEGORIES } from "../../lib/categories";
 import BanerTwo from "./BanerTwo.astro";
 
 const imageEntries = import.meta.glob("/src/content/artykuly/img/**/*", { eager: true });
@@ -35,8 +36,8 @@ const getArticleSlug = (slugPath) => {
 };
 const normalizeCategories = (category) =>
   Array.isArray(category) ? category : category ? [category] : [];
-const TARGET_CATEGORY = "Testy i opinie";
-const TARGET_CATEGORY_SLUGS = ["testy-i-opinie"];
+const TARGET_CATEGORY = ART_CATEGORIES[1].label;
+const TARGET_CATEGORY_SLUGS = [ART_CATEGORIES[1].slug];
 
 const posts = Object.entries(entries)
   .map(([file, entry]) => {

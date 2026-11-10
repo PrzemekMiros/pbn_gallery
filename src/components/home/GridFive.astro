@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import adImage from "../../assets/images/advertise/ad-8.png";
 import { slugifyTitle } from "../../lib/slugifyTitle";
+import { ART_CATEGORIES } from "../../lib/categories";
 import BanerFive from "./BanerFive.astro";
 
 const imageEntries = import.meta.glob("/src/content/artykuly/img/**/*", { eager: true });
@@ -35,8 +36,8 @@ const getArticleSlug = (slugPath) => {
 };
 const normalizeCategories = (category) =>
   Array.isArray(category) ? category : category ? [category] : [];
-const TARGET_CATEGORY = "Producenci";
-const TARGET_CATEGORY_SLUGS = ["poradniki-i-technika-jazdy"];
+const TARGET_CATEGORY = ART_CATEGORIES[4].label;
+const TARGET_CATEGORY_SLUGS = [ART_CATEGORIES[4].slug];
 
 const posts = Object.entries(entries)
   .map(([file, entry]) => {
@@ -141,4 +142,3 @@ const getPostUrl = (post) => `/artykuly/${post.categorySlug}/${post.slug}/`;
     </aside>
   </div>
 </div>
-

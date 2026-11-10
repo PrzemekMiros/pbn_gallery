@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { slugifyTitle } from "../../lib/slugifyTitle";
+import { ART_CATEGORIES } from "../../lib/categories";
 
 const entries = import.meta.glob("../../content/artykuly/**/*.md", { eager: true });
 
@@ -37,7 +38,9 @@ const articles = Object.entries(entries)
     return dateB - dateA;
   });
 
-const categoryMap = new Map();
+const categoryMap = new Map(
+  ART_CATEGORIES.map(({ slug, label }) => [slug, label])
+);
 articles.forEach((article) => {
   const categories = Array.isArray(article.category)
     ? article.category
@@ -53,7 +56,7 @@ articles.forEach((article) => {
 
 export function getStaticPaths() {
   const entries = import.meta.glob("../../content/artykuly/**/*.md", { eager: true });
-  const slugSet = new Set();
+  const slugSet = new Set(ART_CATEGORIES.map(({ slug }) => slug));
   Object.values(entries).forEach((entry) => {
     const categories = Array.isArray(entry.frontmatter?.category)
       ? entry.frontmatter.category
@@ -70,9 +73,14 @@ export function getStaticPaths() {
   }));
 }
 
-const sortedCategories = Array.from(categoryMap.entries())
-  .map(([slug, label]) => ({ slug, label }))
-  .sort((a, b) => a.label.localeCompare(b.label, "pl-PL"));
+const knownCategorySlugs = new Set(ART_CATEGORIES.map(({ slug }) => slug));
+const sortedCategories = [
+  ...ART_CATEGORIES,
+  ...Array.from(categoryMap.entries())
+    .filter(([slug]) => !knownCategorySlugs.has(slug))
+    .map(([slug, label]) => ({ slug, label }))
+    .sort((a, b) => a.label.localeCompare(b.label, "pl-PL")),
+];
 
 const currentSlug = Astro.params.category;
 const currentCategoryLabel = categoryMap.get(currentSlug) ?? currentSlug;
