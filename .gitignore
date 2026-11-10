@@ -24,7 +24,3 @@ pnpm-debug.log*
 
 # Local Netlify folder
 .netlify
-
-# TinaCMS
-.tina/
-tina/__generated__/
