@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { slugifyTitle } from "../../lib/slugifyTitle";
 import settings from "../../content/ustawienia.json";
+import heroImage from "../../assets/images/sections/art-gallery-articles.svg";
 
 const imageEntries = import.meta.glob("/src/content/artykuly/img/**/*", { eager: true });
 const resolveArticleImage = (path) => {
@@ -81,8 +82,9 @@ const categories = Array.from(
 
 <BaseLayout
   title="Artykuły"
-  description="Praktyczne porady, trendy i ciekawostki o stronach, SEO i marketingu."
+  description="Odkrywaj artykuły o historii sztuki, malarstwie, rzeźbie, fotografii i artystach."
   heroMeta={heroMeta}
+  heroImage={heroImage}
 >
 <section class="mb-16 mt-12 md:mb-24 md:mt-16" itemscope itemtype="https://schema.org/CollectionPage">
   <meta itemprop="name" content="Porady i ciekawostki" />
@@ -226,4 +228,3 @@ const categories = Array.from(
   </div>
 </section>
 </BaseLayout>
-

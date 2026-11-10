@@ -2,6 +2,7 @@
 import logo from "../assets/images/global/logo-dark.png";
 import cookieModalUrl from "../scripts/cookie-modal.js?url";
 import contactFormUrl from "../scripts/contact-form.js?url";
+import { ART_CATEGORIES } from "../lib/categories";
 const currentYear = new Date().getFullYear();
 ---
 
@@ -36,11 +37,13 @@ const currentYear = new Date().getFullYear();
             <div>
               <p class="text-[11px] uppercase tracking-[0.2em] text-white/60">Sekcje</p>
               <ul class="mt-4 space-y-2 text-sm text-white/80">
-                <li><a href="/aktualnosci-i-rynek/" class="transition-colors hover:text-white">Aktualności i rynek</a></li>
-                <li><a href="/samochody-i-testy/" class="transition-colors hover:text-white">Samochody i testy</a></li>
-                <li><a href="/warsztat-i-tuning/" class="transition-colors hover:text-white">Warsztat i tuning</a></li>
-                <li><a href="/poradniki-i-technika-jazdy/" class="transition-colors hover:text-white">Poradniki i technika jazdy</a></li>
-                <li><a href="/turystyka-i-wyprawy/" class="transition-colors hover:text-white">Turystyka i wyprawy</a></li>
+                {ART_CATEGORIES.map((category) => (
+                  <li>
+                    <a href={`/${category.slug}/`} class="transition-colors hover:text-white">
+                      {category.label}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
 

@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
-import heroImage from "../../assets/images/sections/hero-page2.png";
-const { title } = Astro.props;
+import defaultHeroImage from "../../assets/images/sections/art-gallery-articles.svg";
+const { title, heroImage = defaultHeroImage } = Astro.props;
 const { site, url } = Astro;
 const baseUrl = site ? site.toString().replace(/\/$/, "") : "";
 const homeUrl = baseUrl ? `${baseUrl}/` : "/";
@@ -52,5 +52,3 @@ const currentUrl = baseUrl ? new URL(url.pathname, baseUrl).toString() : url.pat
     </div>
   </div>
 </section>
-
-
